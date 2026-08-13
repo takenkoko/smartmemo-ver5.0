@@ -11,13 +11,13 @@ from django.shortcuts import render,redirect
 import markdown
 import bleach
 
-ALLOWED_TAGS = ['p','strong','em','h1','h2','h3','h4','ul','ol','li','blockquote','code','a','br']
+ALLOWED_TAGS = ['p','strong','em','h1','h2','h3','h4','ul','ol','li','blockquote','pre','code','a','br']
 ALLOWED_ATTRIBUTES = {'a':['href']}
 
 # Create your views here.
 #Markdown交換とHTMLサニタイズを行う関数を作成
 def render_memo_content(memo):
-    html = markdown.markdown(memo)
+    html = markdown.markdown(memo,extensions=['fenced_code'])
     return bleach.clean(html, tags=ALLOWED_TAGS, attributes=ALLOWED_ATTRIBUTES)
 
 @login_required

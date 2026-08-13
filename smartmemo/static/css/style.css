@@ -91,3 +91,27 @@ Smartmemo login 画面UIデザインを作成
     border-radius: 50%;
     border: 3px solid #0d6efd;
 }
+
+/*コードブロックのスタイル*/
+.memo-content pre{
+    background-color:#282a36;
+    color: #f8f8f2;
+    padding:1rem;
+    border-radius: 8px;
+    overflow-x: auto;
+    font-family: 'Consolas', 'Menlo', monospace;
+    font-size: 0.9rem;
+    line-height: 1.5;
+
+}
+.memo-content pre code{
+    background-color: transparent;
+    padding: 0;
+}
+
+.memo-content code{
+    background-color:#f1f1f1;
+    padding:2px 6px;
+    font-family:'Consolas', 'Menlo', monospace;
+    font-size:0.9rem;
+}
