@@ -11,7 +11,7 @@
 【アプリのスクリーンショット】
 
 - ダークテーマ対応
-![Darktheme](screenshots/127.0.0.1_8000_memo_20_.png.png)
+![Darktheme](screenshots/127.0.0.1_8000_memo_20_.png)
 
 
 ## Ver6.0 更新内容
