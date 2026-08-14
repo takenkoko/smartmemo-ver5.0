@@ -50,9 +50,17 @@ def detail(request,memo_id):
 def create(request):
     if request.method=="POST":
         
-        title=request.POST["title"]
+        title=request.POST.get("title", "").strip()
         content=request.POST["content"]
         category_id = request.POST.get("category")
+
+        #titleが空欄の場合、エラーと返す
+        if not title:
+            return render(request,"smartmemo/create.html",{
+                "error":"タイトルは必須です。",
+                "categories":Category.objects.all()
+            })
+
 
         category = None
         if category_id:
