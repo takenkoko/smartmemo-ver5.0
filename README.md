@@ -4,9 +4,9 @@
 
 開発期間：2026年6月中旬～継続開発中
 
-> 単なるメモアプリではなく、「メモWrite・コードCode・実行Run」を一つの場所で管理できる
-> ハイブリッドメモ帳を目指して開発しています。
-
+> A hybrid note-taking application that combines Markdown, mathematical 
+> expressions, and executable Python code in one workspace.
+> Markdown・数式・Pythonコードを1つのワークスペースで扱えるハイブリッドメモアプリです。
 
 【アプリのスクリーンショット】
 
@@ -16,12 +16,16 @@
 
 ## Ver6.0 更新内容
 - Markdown記法によるメモ作成・編集に対応（Markdown support for creating/editing memos）
+- 🆕KaTeXによる数式表示に対応（KaTeX support for mathematical expressions）
+- 🆕Pyodideを利用したブラウザ上でのPythonコード実行機能を追加（Added browser-based Python execution using Pyodide）
+- 🆕Python実行結果をMarkdownノート内へ保存できるよう改善（Python execution results can be saved directly into Markdown notes）
 - CodeMirrorエディタを導入し、行番号・シンタックスハイライト付きの入力欄に（Integrated CodeMirror editor with line numbers and syntax highlighting）
 - marked.js + DOMPurifyでリアルタイムMarkdownプレビューを実装（XSS対策込み）（Real-time Markdown preview with XSS sanitization）
 - markdown + bleachでサーバー側でも安全にMarkdownをHTML変換し一覧・詳細画面に反映（Server-side Markdown rendering with sanitization）
 - メモ詳細画面を新規追加し、一覧画面をタイトル+更新日時のシンプル表示に変更（Added memo detail page; simplified list view）
 - CodeMirrorをmonokaiテーマに変更しダークモード化、コードブロックの表示もダークスタイルに統一（Dark theme for editor and code blocks）
 - Memoモデルにcreated_at / updated_atフィールドを追加（Added created_at/updated_at fields to Memo model）
+
 
 ## Features(主な機能)
 - ユーザー登録（Sign Up）
@@ -37,6 +41,9 @@
 - Markdown対応メモ作成・編集（Markdown-based memo creation/editing）
 - コードエディタ（CodeMirror、シンタックスハイライト付き）
 - メモ詳細画面（Memo detail page）
+- 🆕KaTeX数式表示（KaTeX Math Rendering）
+- 🆕Pythonコード実行（Browser-based Python Execution）
+- 🆕Python実行結果のノート保存（Save Python Execution Results）
 
 ## Technical Highlights(開発内容)
 - Django標準認証フォームをカスタマイズ（Customized Django authentication forms）
@@ -49,7 +56,14 @@
 - Django Signalsを利用したプロフィール自動作成（Automatic profile creation using Django Signals）
 - marked.js + DOMPurifyによるXSS対策済みMarkdownプレビュー
 - Python markdownライブラリ + bleachによるサーバーサイドのMarkdownサニタイズ
-- CodeMirrorエディタの導入とdraculaテーマ適用
+- CodeMirrorエディタの導入とMonokaiテーマ適用
+- 🆕CodeMirrorを利用したMarkdownコードエディタ
+- 🆕marked.js + DOMPurifyによるリアルタイムMarkdownプレビュー
+- 🆕KaTeXによる数式レンダリング
+- 🆕Pyodideによるブラウザ内Python実行環境
+- 🆕Python実行結果をMarkdownへ自動反映するノート機能
+- 🆕JavaScriptの共通モジュール化（markdown_editor.js / markdown_viewer.js）
+
 
 ## Tech Stack
 - Python
@@ -61,6 +75,8 @@
 - GitHub
 
 ## Future Plans
+- Overleaf-style resizable editor and preview
+- Multi-language code execution
 - PostgreSQL migration
 - Responsive UI improvements
 - Email verification
@@ -71,7 +87,7 @@
 - Ver3.0 Authentication
 - Ver4.0 Profile / Password Change / Account Deletion
 - Ver5.0 Profile Image Upload & Password Reset
-- Ver6.0 Markdown Support & CodeMirror Editor
+- Ver6.0 Markdown, KaTeX & Python Execution
 
 ## 開発メモ
 SmartMemoは、Djangoの学習とWebアプリケーション開発の理解を目的として開発しています。
