@@ -12,7 +12,9 @@ import markdown
 import bleach
 
 ALLOWED_TAGS = ['p','strong','em','h1','h2','h3','h4','ul','ol','li','blockquote','pre','code','a','br']
-ALLOWED_ATTRIBUTES = {'a':['href']}
+ALLOWED_ATTRIBUTES = {'a':['href'],
+                      'code':['class'],
+                      }
 
 # Create your views here.
 #Markdown交換とHTMLサニタイズを行う関数を作成

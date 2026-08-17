@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="ja">
     <head lange="ja">
@@ -15,7 +16,14 @@
             
             <form method="post">
                 {%csrf_token%}
-                
+
+                <!--実行結果を送るための隠しフィールドを追加-->
+                <input 
+                    type="hidden" 
+                    id="execution-output"
+                    name="execution_output"
+                    value="{{ memo.execution_output }}">
+
                 <div class="mb-3">
                     <label class="form-label">タイトル</label>
                     <input type="text" name="title" value="{{memo.title}}" class="form-control">
@@ -55,37 +63,9 @@
         <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
         
-        <script>
-            const previewDiv = document.getElementById('preview');
-            const textarea = document.getElementById('memo-content');
+        <script src="https://cdn.jsdelivr.net/pyodide/v0.26.2/full/pyodide.js"></script>
 
-            //textareaをCodlabに変換
-            const editor = CodeMirror.fromTextArea(textarea, {
-                mode: 'markdown',
-                lineNumbers: true,
-                lineWrapping: true,
-                theme:'monokai',
-            });
-
-            editor.setSize('100%',375);//高さプレビュー欄を揃える
-
-            function updatePreview(){
-                const rawHTML = marked.parse(editor.getValue());
-                previewDiv.innerHTML = DOMPurify.sanitize(rawHTML);
-
-                //数式のレンダリング
-                renderMathInElement(previewDiv, {
-                    delimiters: [
-                        {left: "$$", right: "$$", display: true},
-                        {left: "$", right: "$", display: false}
-                    ],
-                });
-            }
-
-
-            editor.on('change',updatePreview);
-            updatePreview(); //初期表示のプレビューを更新
-        </script>
+        <script src="{% static 'js/markdown_editor.js'%}"></script>
     </body>
 </html>
 

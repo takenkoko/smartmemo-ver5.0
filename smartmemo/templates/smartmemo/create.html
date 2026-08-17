@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="ja">
 
@@ -85,41 +86,9 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
         <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
-        
-        <script>
-            const previewDiv = document.getElementById('preview');
-            const textarea = document.getElementById('memo-content');
+        <script src="https://cdn.jsdelivr.net/pyodide/v0.26.2/full/pyodide.js"></script>
 
-            //textareaをCodlabに変換
-            const editor = CodeMirror.fromTextArea(textarea, {
-                mode: 'markdown',
-                lineNumbers: true,
-                lineWrapping: true,
-                theme:'monokai',
-            });
-
-            editor.setSize('100%',375);//高さプレビュー欄を揃える
-
-            function updatePreview(){
-                const rawHTML = marked.parse(editor.getValue());
-                previewDiv.innerHTML = DOMPurify.sanitize(rawHTML);
-                
-                //数式のレンダリング
-                renderMathInElement(previewDiv, {
-                    delimiters: [
-                        {left: "$$", right: "$$", display: true},
-                        {left: "$", right: "$", display: false}
-                    ],
-                });
-            }
-            //入力のたびにプレイヤーを更新
-            editor.on('change',updatePreview);
-
-            //フォーム送信前に、Codemirrorの内容をtextareaに反映
-            const form = document.querySelector('form');
-            form.addEventListener('submit', ()=>{
-                editor.save(); 
-            });
-        </script>
+        <script src="{% static 'js/markdown_editor.js' %}"></script>
+    
     </body>
 </html>
