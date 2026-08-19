@@ -68,21 +68,13 @@ if(!previewDiv || !textarea){
                             });
                             await pyodide.runPythonAsync(block.textContent);
 
-                            const currentContent = editor.getValue();
-                            const outputBlock = 
-                            "\n\n```text\n" + 
-                            outputDiv.textContent.trim() + 
-                            "\n```\n";
-
-                            //```textブロックがあれば置き換え
-                            const updatedContent = currentContent.replace(
-                                /\n```text[\s\S]*?```\s*$/m,
-                                ""                               
+                            //updateOutputBlock()を呼び出す
+                            updateOutputBlock(
+                                editor,
+                                block.textContent,
+                                outputDiv.textContent
                             );
-
-                            editor.setValue(updatedContent + outputBlock);
-                    
-
+                        
                         }catch (err){
                             outputDiv.textContent += 'Error: ' + err.message + '\n';
                         }
@@ -99,7 +91,51 @@ if(!previewDiv || !textarea){
                     button.insertAdjacentElement('afterend',outputDiv);
                 });
             }
-            
+
+            function updateOutputBlock(editor,code,output){
+                
+                //コードブロックごとに実行管理
+                const currentContent = editor.getValue();
+
+                const codeBlock = 
+                "```python\n" + 
+                code.trim() + 
+                "\n```";
+
+                const outputBlock = 
+                "\n\n```text\n" + 
+                output.trim() +
+                "\n```\n";
+
+                const position = currentContent.indexOf(codeBlock);
+
+                if (position === -1){
+                    return;
+                }
+
+                const before = currentContent.slice(
+                    0,
+                    position + codeBlock.length
+                );
+
+                let after = currentContent.slice(
+                    position + codeBlock.length
+                    
+                );
+                after = after.replace(
+                        /^\s*```text[\s\S]*?```\s*/,
+                        ""
+                    );
+
+                const newContent = 
+                before + 
+                outputBlock + 
+                after;
+
+                editor.setValue(newContent);
+
+            }
+
             function renderMarkdown(){
                 const rawHTML = marked.parse(editor.getValue());
                 previewDiv.innerHTML = DOMPurify.sanitize(rawHTML);
